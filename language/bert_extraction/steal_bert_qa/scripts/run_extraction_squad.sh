@@ -14,13 +14,14 @@
 # limitations under the License.
 #!/bin/bash
 
-export BERT_DIR=/path/to/bert/uncased_L-24_H-1024_A-16
-export SQUAD_DIR=/path/to/store/SQUAD/data
+export BERT_DIR=$1
+export SQUAD_DIR=$2
 
-export WIKI103_DIR=/directory/to/store/wikitext-103-raw/
-export EXTRACTION_DATA=/path/to/extraction/dataset/
-export VICTIM_MODEL=/path/to/victim/model/checkpoint
-export OUTPUT_DIR=/path/to/output/extracted/model/checkpoints
+export WIKI103_DIR="${4}/wikitext-103-raw"
+export EXTRACTION_DATA=$5
+export VICTIM_MODEL=$3
+export OUTPUT_DIR=$6
+export BERT_DIR_VICTIM=$7
 
 # Can be set to wiki or random
 export DATA_SCHEME="WIKI"
@@ -79,9 +80,9 @@ python -m language.bert_extraction.steal_bert_qa.models.run_squad \
   --do_lower_case=true \
   --predict_input_file=$EXTRACTION_DATA/new_train.json \
   --predict_output_dir=$EXTRACTION_DATA \
-  --vocab_file=$BERT_DIR/vocab.txt \
-  --bert_config_file=$BERT_DIR/bert_config.json \
-  --init_checkpoint=$BERT_DIR/bert_model.ckpt \
+  --vocab_file=$BERT_DIR_VICTIM/vocab.txt \
+  --bert_config_file=$BERT_DIR_VICTIM/bert_config.json \
+  --init_checkpoint=$BERT_DIR_VICTIM/bert_model.ckpt \
   --max_seq_length=384 \
   --output_dir=$VICTIM_MODEL
 

@@ -17,9 +17,9 @@
 # Make sure you have downloaded the pretrained BERT model as well as SQuAD
 # Download links for BERT models :- https://github.com/google-research/bert
 
-export BERT_DIR=/path/to/bert/uncased_L-24_H-1024_A-16
-export SQUAD_DIR=/path/to/squad
-export OUTPUT_DIR=/path/to/output_dir
+export BERT_DIR=$1
+export SQUAD_DIR=$2
+export OUTPUT_DIR=$3
 
 # STEP 1
 # Download the SQuAD datasets. This is a one-time step, can be ignored once done.
