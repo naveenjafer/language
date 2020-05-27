@@ -87,6 +87,7 @@ def metric_max_over_ground_truths(metric_fn, prediction, ground_truths):
   for ground_truth in ground_truths:
     score = metric_fn(prediction, ground_truth)
     scores_for_ground_truths.append(score)
+  #print(scores_for_ground_truths)
   return max(scores_for_ground_truths)
 
 
@@ -115,27 +116,52 @@ def evaluate_preds_preds(preds1, preds2):
 def evaluate_dataset_preds(dataset, predictions):
   """Evaluate word level metrics."""
   f1 = exact_match = total = 0
+  f1 = {"names" : 0, "numbers" : 0, "places" : 0, "dates" : 0, "otherEnts" : 0, "noun_phrases" : 0, "verb_phrases" : 0, "adjective_phrases" : 0, "clauses" : 0, "others" : 0}
+  exact_match = {"names" : 0, "numbers" : 0, "places" : 0, "dates" : 0, "otherEnts" : 0, "noun_phrases" : 0, "verb_phrases" : 0, "adjective_phrases" : 0, "clauses" : 0, "others" : 0}
+  total = {"names" : 0, "numbers" : 0, "places" : 0, "dates" : 0, "otherEnts" : 0, "noun_phrases" : 0, "verb_phrases" : 0, "adjective_phrases" : 0, "clauses" : 0, "others" : 0}
+  avg_len = {"names" : 0, "numbers" : 0, "places" : 0, "dates" : 0, "otherEnts" : 0, "noun_phrases" : 0, "verb_phrases" : 0, "adjective_phrases" : 0, "clauses" : 0, "others" : 0}
+  test = 0
   for article in dataset:
     for paragraph in article['paragraphs']:
       for qa in paragraph['qas']:
-        total += 1
+        category = qa["category"]
+        total[category] += 1
         if qa['id'] not in predictions:
           message = 'Unanswered question ' + qa['id'] + ' will receive score 0.'
           print(message)
           continue
         ground_truths = [x['text'] for x in qa['answers']]
+        avg_len_local = 0
+        test = test + 1
+        for ground_truth in ground_truths:
+            avg_len_local = avg_len_local + len(ground_truth.split(" "))
+        if len(ground_truths) > 0:
+            avg_len_local = avg_len_local / len(ground_truths)
         prediction = predictions[qa['id']]
         curr_exact_match = metric_max_over_ground_truths(
             exact_match_score, prediction, ground_truths)
-        exact_match += curr_exact_match
-        f1 += metric_max_over_ground_truths(f1_score, prediction, ground_truths)
+        exact_match[category] += curr_exact_match
+        f1[category] += metric_max_over_ground_truths(f1_score, prediction, ground_truths)
+        avg_len[category] += avg_len_local
 
-  exact_match = 100.0 * exact_match / total
-  f1 = 100.0 * f1 / total
-
-  return {'exact_match': exact_match, 'f1': f1}
-
-
+  print("**************Class wise metrics****************")
+  for key in f1:
+      print("Category is ", key)
+      exact_match_t = 100.0 * exact_match[key] / total[key]
+      f1_t = 100.0 * f1[key] / total[key]
+      avg_len_t = avg_len[key] / total[key]
+      print("Exact_match: " ,round(exact_match_t,2), "\t F1 score: ", round(f1_t,2), "\t Avg Len: ", round(avg_len_t, 2))
+  #return {'exact_match': exact_match, 'f1': f1}
+  print("\n**************Joint metrics****************")
+  exact_match_s = 0
+  f1_s = 0
+  total_s = 0
+  for key in f1:
+      exact_match_s += exact_match[key]
+      f1_s += f1[key]
+      total_s += total[key]
+  print("Exact Match: ", round(exact_match_s/total_s,2), " F1 Score: ", round(f1_s/total_s,2))
+  
 def evaluate_dataset_dataset(dataset, dataset2):
   """Evaluate word level metrics."""
   f1 = exact_match = total = 0
@@ -187,7 +213,8 @@ def main(_):
   else:
     dataset = load_dataset_file(FLAGS.dataset_file)
     preds = load_preds_file(FLAGS.prediction_file)
-    print(json.dumps(evaluate_dataset_preds(dataset, preds)))
+    evaluate_dataset_preds(dataset, preds)
+    #print(json.dumps(evaluate_dataset_preds(dataset, preds)))
 
 
 if __name__ == '__main__':
