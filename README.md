@@ -67,13 +67,18 @@ Ensure that it is named as "stanford-corenlp-full-2018-10-05" and place it in th
 
 ## Running the code
 ### Script 1
-`cd language/language/bert_extraction/steal_bert_qa/scripts/`
-This script trains the victim model and outputs the classwise F1 and exact match scores.
+`cd language/language/bert_extraction/steal_bert_qa/scripts/`  
+
+This script trains the victim model and outputs the classwise F1 and exact match scores.  
+
 `./train_victim_squad.sh <arg1> <arg2> <arg3> <arg4>`
-arg1 - Full path to the uncased_L-12_H-768_A-12 folder inside bertModelVictim above
-arg2 - Full Path to squadDir folder created above
-arg3 - Full path to outputDirVictim folder created above
-arg4 - Full path to stanford-corenlp-full-2018-10-05 folder created above
+arg1 - Full path to the uncased_L-12_H-768_A-12 folder inside bertModelVictim above  
+
+arg2 - Full Path to squadDir folder created above  
+
+arg3 - Full path to outputDirVictim folder created above  
+
+arg4 - Full path to stanford-corenlp-full-2018-10-05 folder created above  
 
 ### Script 2
 Todo
