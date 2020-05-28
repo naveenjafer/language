@@ -2,6 +2,9 @@
 This is a clone of the https://ai.google/research/teams/language/ repo from the google open source projects.
 
 # Instructions
+## Clone this repo
+Clone this repo and switch to the branch "colabCompatible"
+
 ## Virtual env
 Create a virtual env
 `python3 -m venv env`
@@ -21,7 +24,10 @@ pip install stanfordcorenlp
 ```
 
 ## Build and install
-`python3 setup.py build && python3 setup.py install`
+```
+cd language
+python3 setup.py build && python3 setup.py install
+```
 
 ## Modify Permissions
 Since we are concerned with the extraction of squad in this repo, set permissions to the following shell scripts.
@@ -29,8 +35,12 @@ Since we are concerned with the extraction of squad in this repo, set permission
 
 ## Prepare the folders needed
 Decide on a location where all the relevant generated folders and files will be placed/created. I have picked the level where this repo has been duplicated for generating my folders.
+The cloned folder is named "language" so I have placed all the other folders created inside one folder "generatedFolders" that is at the same level as "language".
+`cd ..`
 
 ### Download Bert model.
+`mkdir generatedFolders`
+`cd generatedFolders`
 `mkdir bertModelVictim`
 `mkdir bertModelExtracted`
 `cd bertModelVictim`
@@ -57,7 +67,7 @@ Ensure that it is named as "stanford-corenlp-full-2018-10-05" and place it in th
 
 ## Running the code
 ### Script 1
-`cd language/bert_extraction/steal_bert_qa/scripts/`
+`cd language/language/bert_extraction/steal_bert_qa/scripts/`
 This script trains the victim model and outputs the classwise F1 and exact match scores.
 `./train_victim_squad.sh <arg1> <arg2> <arg3> <arg4>`
 arg1 - Full path to the uncased_L-12_H-768_A-12 folder inside bertModelVictim above
