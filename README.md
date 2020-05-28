@@ -39,15 +39,17 @@ The cloned folder is named "language" so I have placed all the other folders cre
 `cd ..`
 
 ### Download Bert model.
-`mkdir generatedFolders`
-`cd generatedFolders`
-`mkdir bertModelVictim`
-`mkdir bertModelExtracted`
-`cd bertModelVictim`
-`wget https://storage.googleapis.com/bert_models/2020_02_20/uncased_L-12_H-768_A-12.zip`
-`unzip uncased_L-12_H-768_A-12.zip`
-`cp -rf uncased_L-12_H-768_A-12 ../bertModelExtracted/`
-`cd ..`
+```
+mkdir generatedFolders
+cd generatedFolders
+mkdir bertModelVictim
+mkdir bertModelExtracted
+cd bertModelVictim
+wget https://storage.googleapis.com/bert_models/2020_02_20/uncased_L-12_H-768_A-12.zip
+unzip uncased_L-12_H-768_A-12.zip
+cp -rf uncased_L-12_H-768_A-12 ../bertModelExtracted/
+cd ..
+```
 
 ### Create other folders
 ```
