@@ -21,6 +21,7 @@ pip install spacy
 pip install textacy
 pip install nltk
 pip install stanfordcorenlp
+python -m spacy download en_core_web_sm
 ```
 
 ## Build and install
@@ -30,12 +31,12 @@ python3 setup.py build && python3 setup.py install
 ```
 
 ## Modify Permissions
-Since we are concerned with the extraction of squad in this repo, set permissions to the following shell scripts.
+Since we are concerned with the extraction of squad in this repo, set permissions to the following shell scripts.  
 `chmod +x language/bert_extraction/steal_bert_qa/scripts/*`
 
 ## Prepare the folders needed
 Decide on a location where all the relevant generated folders and files will be placed/created. I have picked the level where this repo has been duplicated for generating my folders.
-The cloned folder is named "language" so I have placed all the other folders created inside one folder "generatedFolders" that is at the same level as "language".
+The cloned folder is named "language" so I have placed all the other folders created inside one folder "generatedFolders" that is at the same level as "language".  
 `cd ..`
 
 ### Download Bert model.
