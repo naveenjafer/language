@@ -20,6 +20,7 @@
 export BERT_DIR=$1
 export SQUAD_DIR=$2
 export OUTPUT_DIR=$3
+export CORENLP_DIR=$4
 
 # STEP 1
 # Download the SQuAD datasets. This is a one-time step, can be ignored once done.
@@ -49,9 +50,15 @@ python -m language.bert_extraction.steal_bert_qa.models.run_squad \
   --num_train_epochs=3.0 \
   --output_dir=$OUTPUT_DIR
 
+# Step Intermediate.
+python -m language.bert_extraction.steal_bert_qa.utils.determineCategories \
+  --input_path=$SQUAD_DIR/dev-v1.1.json \
+  --output_path=$SQUAD_DIR/devTest.json \
+  --corenlp_path=$CORENLP_DIR
+
 # STEP 3
 # Evaluate the predictions of the victim model using the SQuAD eval script
 # For SQuAD 2.0, use the script language.bert_extraction.steal_bert_qa.utils.evaluate_squad_2
 python -m language.bert_extraction.steal_bert_qa.utils.evaluate_squad \
-  --dataset_file=$SQUAD_DIR/dev-v1.1.json \
+  --dataset_file=$SQUAD_DIR/devTest.json \
   --prediction_file=$OUTPUT_DIR/predictions.json
