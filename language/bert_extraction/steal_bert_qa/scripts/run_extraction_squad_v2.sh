@@ -142,9 +142,10 @@ python -m language.bert_extraction.steal_bert_qa.utils.evaluate_squad_2 \
   --pred_file=$OUTPUT_DIR/predictions.json
 
 
+#commenting this off since the code for v2 does not handle the cases for v1.
 # STEP 8.2
 # Evaluate the agreement of the extracted model (vs the victim model's accuracy)
 # For SQuAD 2.0, use the script language.bert_extraction.steal_bert_qa.utils.evaluate_squad_2
-python -m language.bert_extraction.steal_bert_qa.utils.evaluate_squad_2 \
-  --pred_file=$VICTIM_MODEL/predictions.json \
-  --pred_file2=$OUTPUT_DIR/predictions.json
+#python -m language.bert_extraction.steal_bert_qa.utils.evaluate_squad_2 \
+#  --pred_file=$VICTIM_MODEL/predictions.json \
+#  --pred_file2=$OUTPUT_DIR/predictions.json
