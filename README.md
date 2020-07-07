@@ -74,12 +74,23 @@ Ensure that it is named as "stanford-corenlp-full-2018-10-05" and place it in th
 
 This script trains the victim model and outputs the classwise F1 and exact match scores.  
 
-`./train_victim_squad.sh <arg1> <arg2> <arg3> <arg4>`  
+`./train_victim_squad_v2.sh <arg1> <arg2> <arg3> <arg4>`  
 
-arg1 - Full path to the uncased_L-12_H-768_A-12 folder inside bertModelVictim above  
+arg1 - Full path to the bertModelVictim folder created above
 arg2 - Full Path to squadDir folder created above  
 arg3 - Full path to outputDirVictim folder created above  
 arg4 - Full path to stanford-corenlp-full-2018-10-05 folder created above  
 
 ### Script 2
-Todo
+
+This script does the extraction of the victim model.  
+
+`./run_extraction_squad_v2.sh <arg1> <arg2> <arg3> <arg4> <arg5> <arg6> <arg7>`  
+
+arg1 - Full path to the bertModelExtracted folder created above  
+arg2 - Full Path to squadDir folder created above  
+arg3 - Full path to outputDirVictim folder created above  
+arg4 - Full path to wikiDir folder created above  
+arg5 - Full path to extractionDir folder created above  
+arg6 - Full path to outputDirExtracted folder created above  
+arg7 - Full path to bertModelVictim folder created above  
