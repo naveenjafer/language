@@ -51,14 +51,14 @@ python -m language.bert_extraction.steal_bert_qa.models.run_squad \
   --output_dir=$OUTPUT_DIR
 
 # Step Intermediate.
-#python -m language.bert_extraction.steal_bert_qa.utils.determineCategories \
-#  --input_path=$SQUAD_DIR/dev-v2.0.json \
-#  --output_path=$SQUAD_DIR/devTest.json \
-#  --corenlp_path=$CORENLP_DIR
+python -m language.bert_extraction.steal_bert_qa.utils.determineCategories \
+  --input_path=$SQUAD_DIR/dev-v2.0.json \
+  --output_path=$SQUAD_DIR/devTest.json \
+  --corenlp_path=$CORENLP_DIR
 
 # STEP 3
-# Evaluate the predictions of the victim model using the SQuAD eval script
-# For SQuAD 2.0, use the script language.bert_extraction.steal_bert_qa.utils.evaluate_squad_2
-#python -m language.bert_extraction.steal_bert_qa.utils.evaluate_squad \
-#  --dataset_file=$SQUAD_DIR/devTest.json \
-#  --prediction_file=$OUTPUT_DIR/predictions.json
+ Evaluate the predictions of the victim model using the SQuAD eval script
+ For SQuAD 2.0, use the script language.bert_extraction.steal_bert_qa.utils.evaluate_squad_2
+python -m language.bert_extraction.steal_bert_qa.utils.evaluate_squad \
+  --dataset_file=$SQUAD_DIR/devTest.json \
+  --prediction_file=$OUTPUT_DIR/predictions.json
